@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+  themes: synthwave --default, night --dark
+}
+
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  padding: 60px;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 3rem;
+  margin-bottom: 5px;
+}
