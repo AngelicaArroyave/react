@@ -19,7 +19,7 @@ export const HeroCard = ({ hero }) => {
 
     return (
         <>
-            <div className="card bg-base-100 w-60 shadow-sm mt-4">
+            <div className="card bg-base-100 w-60 shadow-sm mt-4 animate__animated animate__fadeIn">
                 <figure>
                     <img
                         src={ heroImageUrl }

@@ -22,6 +22,9 @@ export const Navbar = () => {
                             <li>
                                 <NavLink to="/dc">DC</NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/search">Search</NavLink>
+                            </li>
                         </ul>
                     </div>
                     <Link className="btn btn-ghost text-xl" to="/">Associations</Link>
@@ -33,6 +36,9 @@ export const Navbar = () => {
                         </li>
                         <li>
                             <NavLink className={({ isActive }) => isActive ? "bg-info text-black" : ""} to="/dc">DC</NavLink>
+                        </li>
+                        <li>
+                            <NavLink className={({ isActive }) => isActive ? "bg-info text-black" : ""} to="/search">Search</NavLink>
                         </li>
                     </ul>
                 </div>
