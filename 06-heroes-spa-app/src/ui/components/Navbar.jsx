@@ -1,8 +1,14 @@
 import { Link, NavLink, useNavigate } from 'react-router'
+import { useContext } from 'react'
+
+import { AuthContext } from '../../auth/context/AuthContext'
 
 export const Navbar = () => {
+    const { user, logout } = useContext(AuthContext)
     const navigate = useNavigate()
+
     const onLogout = () => {
+        logout()
         navigate('/login', { replace: true })
     }
 
@@ -43,7 +49,7 @@ export const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <span className="text-cyan-400 mr-3">Angie</span>
+                    <span className="text-cyan-400 mr-3">{ user?.name }</span>
                     <div className="mr-5 hover:bg-info rounded-3xl w-10 h-10 flex items-center justify-center cursor-pointer" onClick={ onLogout }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" d="M24 12H8m10.5-5c0 .577.665 1.562 1.228 2.294a7.5 7.5 0 0 0 1.745 1.662C22.2 11.445 23.2 12 23.99 12c-.79 0-1.79.556-2.517 1.044a7.5 7.5 0 0 0-1.745 1.662c-.563.732-1.228 1.717-1.228 2.294m-4-10V2.5h-.329A46 46 0 0 1 1.103.605L.75.5H.5v23h.25l.353-.105A46 46 0 0 1 14.171 21.5h.329V17" stroke-width="1"/></svg>
                     </div>
