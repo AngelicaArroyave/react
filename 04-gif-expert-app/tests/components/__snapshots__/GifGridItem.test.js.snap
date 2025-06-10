@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test in GifGridItem component Should make match with snapshot 1`] = `
+<div>
+  <div
+    class="card"
+  >
+    <img
+      alt="Rick and Morty"
+      src="https://media.giphy.com/media/l0HlE0b7l3j3q/giphy.gif"
+    />
+    <p>
+       
+      Rick and Morty
+       
+    </p>
+  </div>
+</div>
+`;
