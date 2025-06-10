@@ -46,8 +46,8 @@ export const SearchPage = () => {
                     <div className="divider"></div>
 
                     {
-                        (q === '') ? <div className="alert alert-info mb-3 animate__animated animate__fadeIn">Search a hero</div>
-                        : (heroes.length === 0) && <div className="alert alert-error alert-soft animate__animated animate__fadeIn">There's no results with<b>{ q }</b></div>
+                        (q === '') ? <div className="alert alert-info mb-3 animate__animated animate__fadeIn" aria-label="alert-info">Search a hero</div>
+                        : (heroes.length === 0) && <div className="alert alert-error alert-soft animate__animated animate__fadeIn" aria-label="alert-danger">There's no results with<b>{ q }</b></div>
                     }
 
                     {

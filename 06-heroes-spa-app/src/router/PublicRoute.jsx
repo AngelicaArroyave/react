@@ -1,7 +1,7 @@
+import { Navigate } from 'react-router'
 import { useContext } from 'react'
 
-import { AuthContext, LoginPage } from '../auth'
-import { Navigate } from 'react-router'
+import { AuthContext } from '../auth'
 
 export const PublicRoute = ({ children }) => {
     const { logged } = useContext(AuthContext)
