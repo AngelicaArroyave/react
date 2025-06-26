@@ -2,12 +2,13 @@
   "name": "journal-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -23,13 +24,24 @@
     "sweetalert2": "^11.22.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react": "^4.0.1",
+    "babel-jest": "^30.0.2",
+    "cloudinary": "^2.7.0",
+    "dotenv": "^16.5.0",
     "eslint": "^8.44.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
-    "vite": "^4.4.0"
+    "jest": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.2",
+    "setimmediate": "^1.0.5",
+    "vite": "^4.4.0",
+    "whatwg-fetch": "^3.6.20"
   }
 }

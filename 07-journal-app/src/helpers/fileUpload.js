@@ -1,5 +1,6 @@
 export const fileUpload = async(file) => {
-    if(!file) throw new Error('The file is not defined')
+    // if(!file) throw new Error('The file is not defined')
+    if(!file) return null
     
     const cloudUrl = 'https://api.cloudinary.com/v1_1/du1qbudpu/upload'
     const formData = new FormData()
@@ -19,8 +20,10 @@ export const fileUpload = async(file) => {
 
         return cloudResponse.secure_url
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         
-        throw new Error(error.message)
+        // throw new Error(error.message)
+
+        return null
     }
 }
