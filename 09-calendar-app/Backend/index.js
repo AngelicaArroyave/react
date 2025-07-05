@@ -1,9 +1,15 @@
+import { dbConnection } from './database/config.js'
 import authRouter from './routes/auth.js'
-import express from 'express'
+import cors from 'cors'
 import dotenv from 'dotenv/config'
+import express from 'express'
 
-const app = express()
 const PORT = process.env.PORT
+const app = express()
+
+dbConnection()
+
+app.use(cors())
 
 app.use(express.static('public'))
 app.use(express.json())

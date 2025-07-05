@@ -3,6 +3,7 @@ import { Router } from 'express'
 import { createUser, loginUser, renewToken } from '../controllers/auth.js'
 import { check } from 'express-validator'
 import { fieldsValidators } from '../middlewares/fields-validators.js'
+import { jwtValidator } from '../middlewares/jwt-validator.js'
 
 const authRouter = Router()
 
@@ -23,6 +24,6 @@ authRouter.post('/', [
     fieldsValidators
 ], loginUser)
 
-authRouter.get('/renew', renewToken)
+authRouter.get('/renew', jwtValidator, renewToken)
 
 export default authRouter
