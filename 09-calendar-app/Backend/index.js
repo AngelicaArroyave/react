@@ -1,8 +1,10 @@
-import { dbConnection } from './database/config.js'
-import authRouter from './routes/auth.js'
 import cors from 'cors'
 import dotenv from 'dotenv/config'
 import express from 'express'
+
+import { dbConnection } from './database/config.js'
+import authRouter from './routes/auth.js'
+import eventsRouter from './routes/events.js'
 
 const PORT = process.env.PORT
 const app = express()
@@ -14,5 +16,6 @@ app.use(cors())
 app.use(express.static('public'))
 app.use(express.json())
 app.use('/api/auth', authRouter)
+app.use('/api/events', eventsRouter)
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
