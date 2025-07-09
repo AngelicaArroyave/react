@@ -87,6 +87,8 @@ export const renewToken = async (req = request, res = response) => {
     res.status(200).json({
         ok: true,
         message: 'Renew',
+        uid,
+        name,
         token
     })
 }
