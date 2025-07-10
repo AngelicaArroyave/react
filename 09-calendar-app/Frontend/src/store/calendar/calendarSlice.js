@@ -1,25 +1,10 @@
-import { addHours } from 'date-fns'
 import { createSlice } from '@reduxjs/toolkit'
-
-const tempEvent = {
-    _id: new Date().getTime(),
-    title: 'Birthday Party',
-    notes: 'Remember to buy flowers for the guests',
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: '#fafafa',
-    user: {
-        _id: '123ABC',
-        name: 'John Doe'
-    }
-}
 
 export const calendarSlice = createSlice({
     name: 'calendar',
     initialState: {
-        events: [
-            tempEvent
-        ],
+        isLoadingEvents: true,
+        events: [],
         activeEvent: null
     },
     reducers: {
@@ -32,7 +17,7 @@ export const calendarSlice = createSlice({
         },
         onUpdateEvent: (state, {payload}) => {
             state.events = state.events.map(event => {
-                if(event._id === payload._id) return payload
+                if(event.id === payload.id) return payload
 
                 return event
             })
@@ -40,10 +25,24 @@ export const calendarSlice = createSlice({
         onDeleteEvent: state => {
             if(state.activeEvent === null) return
             
-            state.events = state.events.filter(event => event._id !== state.activeEvent._id)
+            state.events = state.events.filter(event => event.id !== state.activeEvent.id)
+            state.activeEvent = null
+        },
+        onLoadEvents: (state, {payload}) => {
+            state.isLoadingEvents = false
+            // state.events = payload
+            payload.forEach(event => {
+                const exists = state.events.some(dbEvent => dbEvent.id === event.id)
+
+                if(!exists) state.events.push(event)
+            })
+        },
+        onLogoutCalendar: state => {
+            state.isLoadingEvents = true
+            state.events = []
             state.activeEvent = null
         }
     }
 })
 
-export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent } = calendarSlice.actions
+export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents, onLogoutCalendar } = calendarSlice.actions
