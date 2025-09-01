@@ -12,18 +12,18 @@ const address = {
     country: 'Canada'
 }
 
-export const MyAwesomeApp = () => {
-    const myStyles: CSSProperties = {
-                    backgroundColor: 'purple',
-                    color: 'white',
-                    borderRadius: isActive ? 8 : 15,
-                    padding: 10,
-                    marginTop: 20
-                }
+const myStyles: CSSProperties = {
+                backgroundColor: 'purple',
+                color: 'white',
+                borderRadius: isActive ? 8 : 15,
+                padding: 10,
+                marginTop: 20
+            }
 
+export const MyAwesomeApp = () => {
     return (
-        <>
-            <h1>{firstName}</h1>
+        <div data-testid="div-app">
+            <h1 data-testid="first-name-title">{firstName}</h1>
             <h3>{lastName}</h3>
 
             <p>{favoriteGames.join(', ')}</p>
@@ -31,6 +31,6 @@ export const MyAwesomeApp = () => {
             <h1>{isActive ? 'Active' : 'No active'}</h1>
 
             <p style={myStyles}>{JSON.stringify(address)}</p>
-        </>
+        </div>
     )
 }

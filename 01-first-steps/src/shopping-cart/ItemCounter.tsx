@@ -30,7 +30,8 @@ export const ItemCounter = ({ name, quantity = 1 }: Props) => {
         //   marginTop: 10}}
         >
             <span className={styles['item-text']} style={{
-                color: count === 1 ? styles.red : 'black'
+                // color: count === 1 ? styles.red : 'black'
+                color: count === 1 ? 'red' : 'black'
             }}>
                 { name }</span>
             <button onClick={handleAdd}>+1</button>
