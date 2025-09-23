@@ -5,10 +5,14 @@ exports[`Test in GifsApp component > Should render component property 1`] = `
   <div
     class="content-center"
   >
-    <h1>
+    <h1
+      data-testid="title"
+    >
       Gifs Search
     </h1>
-    <p>
+    <p
+      data-testid="description"
+    >
       Discover and share the perfect Gif
     </p>
   </div>
