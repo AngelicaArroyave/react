@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,22 +6,18 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react"
 
-import { getHeroAction } from '@/heroes/actions/get-hero'
+import { getHero } from '@/heroes/actions/get-hero'
 
 export const HeroPage = () => {
     const { idSlug = '' } = useParams()
 
-    const { data: hero, isError } = useQuery({
+    const { data: hero } = useQuery({
         queryKey: ['hero-information'],
-        queryFn: () => getHeroAction(idSlug),
-        retry: false
+        queryFn: () => getHero(idSlug),
+        staleTime: 1000 * 60 * 5 // 5 minutos
     })
 
-    if (isError) return <Navigate to="/" />
-
-    if (!hero) return <h3>Loading...</h3>
-
-    const totalPower = hero.strength + hero.intelligence + hero.speed + hero.durability
+    const totalPower = (hero?.strength ?? 0) + (hero?.intelligence ?? 0) + (hero?.speed ?? 0) + (hero?.durability ?? 0)
     const averagePower = Math.round((totalPower / 4) * 10)
 
     return (
@@ -32,8 +28,8 @@ export const HeroPage = () => {
                     <div className="flex flex-col md:flex-row items-center gap-8">
                         <div className="relative">
                             <img
-                                src={hero.image}
-                                alt={hero.alias}
+                                src={hero?.image}
+                                alt={hero?.alias}
                                 width={200}
                                 height={200}
                                 className="rounded-full border-4 border-white/20 shadow-2xl"
@@ -47,16 +43,16 @@ export const HeroPage = () => {
 
                         <div className="flex-1 text-center md:text-left">
                             <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
-                                {/* <Badge className={`${getCategoryColor(hero.category ?? '')} text-white`}>{hero.category}</Badge> */}
-                                <Badge className={`text-white ${hero.category === 'hero' ? 'bg-blue-500' : 'bg-red-500'}`}>{hero.category}</Badge>
-                                {/* <Badge className={`${getStatusColor(hero.status ?? '')} text-white`}>{hero.status}</Badge> */}
-                                <Badge className={`text-white ${hero.status === 'Active' ? 'bg-green-500' : 'bg-gray-500'}`}>{hero.status}</Badge>
-                                <Badge variant="secondary" className="bg-white/20 text-white border-white/30">{hero.universe}</Badge>
+                                {/* <Badge className={`${getCategoryColor(hero?.category ?? '')} text-white`}>{hero?.category}</Badge> */}
+                                <Badge className={`text-white ${hero?.category === 'hero' ? 'bg-blue-500' : 'bg-red-500'}`}>{hero?.category}</Badge>
+                                {/* <Badge className={`${getStatusColor(hero?.status ?? '')} text-white`}>{hero?.status}</Badge> */}
+                                <Badge className={`text-white ${hero?.status === 'Active' ? 'bg-green-500' : 'bg-gray-500'}`}>{hero?.status}</Badge>
+                                <Badge variant="secondary" className="bg-white/20 text-white border-white/30">{hero?.universe}</Badge>
                             </div>
 
-                            <h1 className="text-4xl md:text-6xl font-bold mb-2">{hero.alias}</h1>
-                            <p className="text-xl text-blue-200 mb-4">{hero.name}</p>
-                            <p className="text-lg text-gray-300 max-w-2xl">{hero.description}</p>
+                            <h1 className="text-4xl md:text-6xl font-bold mb-2">{hero?.alias}</h1>
+                            <p className="text-xl text-blue-200 mb-4">{hero?.name}</p>
+                            <p className="text-lg text-gray-300 max-w-2xl">{hero?.description}</p>
                         </div>
 
                         <div className="text-center">
@@ -110,8 +106,8 @@ export const HeroPage = () => {
                                         </div>
                                     </div>
                                     <h3 className="font-semibold text-lg mb-2">Fuerza</h3>
-                                    <div className="text-3xl font-bold text-red-600 mb-2">{hero.strength}</div>
-                                    <Progress value={hero.strength * 10} className="h-2" />
+                                    <div className="text-3xl font-bold text-red-600 mb-2">{hero?.strength}</div>
+                                    <Progress value={(hero?.strength ?? 0) * 10} className="h-2" />
                                 </CardContent>
                             </Card>
 
@@ -124,8 +120,8 @@ export const HeroPage = () => {
                                         </div>
                                     </div>
                                     <h3 className="font-semibold text-lg mb-2">Inteligencia</h3>
-                                    <div className="text-3xl font-bold text-purple-600 mb-2">{hero.intelligence}</div>
-                                    <Progress value={hero.intelligence * 10} className="h-2" />
+                                    <div className="text-3xl font-bold text-purple-600 mb-2">{hero?.intelligence}</div>
+                                    <Progress value={(hero?.intelligence ?? 0) * 10} className="h-2" />
                                 </CardContent>
                             </Card>
 
@@ -138,8 +134,8 @@ export const HeroPage = () => {
                                         </div>
                                     </div>
                                     <h3 className="font-semibold text-lg mb-2">Velocidad</h3>
-                                    <div className="text-3xl font-bold text-yellow-600 mb-2">{hero.speed}</div>
-                                    <Progress value={hero.speed * 10} className="h-2" />
+                                    <div className="text-3xl font-bold text-yellow-600 mb-2">{hero?.speed}</div>
+                                    <Progress value={(hero?.speed ?? 0) * 10} className="h-2" />
                                 </CardContent>
                             </Card>
 
@@ -152,8 +148,8 @@ export const HeroPage = () => {
                                         </div>
                                     </div>
                                     <h3 className="font-semibold text-lg mb-2">Resistencia</h3>
-                                    <div className="text-3xl font-bold text-green-600 mb-2">{hero.durability}</div>
-                                    <Progress value={hero.durability * 10} className="h-2" />
+                                    <div className="text-3xl font-bold text-green-600 mb-2">{hero?.durability}</div>
+                                    <Progress value={(hero?.durability ?? 0) * 10} className="h-2" />
                                 </CardContent>
                             </Card>
                         </div>
@@ -239,8 +235,8 @@ export const HeroPage = () => {
                                     <div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
                                         <Users className="w-12 h-12 text-green-600" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-green-700 mb-2">{hero.team}</h3>
-                                    <p className="text-gray-600">{hero.description}</p>
+                                    <h3 className="text-2xl font-bold text-green-700 mb-2">{hero?.team}</h3>
+                                    <p className="text-gray-600">{hero?.description}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -255,24 +251,24 @@ export const HeroPage = () => {
                                 <CardContent className="space-y-4">
                                     <div className="flex justify-between items-center py-2 border-b">
                                         <span className="text-gray-600">Nombre Real:</span>
-                                        <span className="font-semibold">{hero.name}</span>
+                                        <span className="font-semibold">{hero?.name}</span>
                                     </div>
                                     <div className="flex justify-between items-center py-2 border-b">
                                         <span className="text-gray-600">Alias:</span>
-                                        <span className="font-semibold">{hero.alias}</span>
+                                        <span className="font-semibold">{hero?.alias}</span>
                                     </div>
                                     <div className="flex justify-between items-center py-2 border-b">
                                         <span className="text-gray-600">Categoría:</span>
-                                        {/* <Badge className={`${getCategoryColor(hero.category ?? '')} text-white`}> */}
-                                        <Badge className={`text-white ${hero.category === 'hero' ? 'bg-blue-500' : 'bg-red-500'}`}>
-                                            {hero.category}
+                                        {/* <Badge className={`${getCategoryColor(hero?.category ?? '')} text-white`}> */}
+                                        <Badge className={`text-white ${hero?.category === 'hero' ? 'bg-blue-500' : 'bg-red-500'}`}>
+                                            {hero?.category}
                                         </Badge>
                                     </div>
                                     <div className="flex justify-between items-center py-2">
                                         <span className="text-gray-600">Estado:</span>
-                                        {/* <Badge className={`${getStatusColor(hero.status ?? '')} text-white`}> */}
-                                        <Badge className={`text-white ${hero.status === 'Active' ? 'bg-green-500' : 'bg-gray-500'}`}>
-                                            {hero.status}
+                                        {/* <Badge className={`${getStatusColor(hero?.status ?? '')} text-white`}> */}
+                                        <Badge className={`text-white ${hero?.status === 'Active' ? 'bg-green-500' : 'bg-gray-500'}`}>
+                                            {hero?.status}
                                         </Badge>
                                     </div>
                                 </CardContent>
@@ -285,16 +281,16 @@ export const HeroPage = () => {
                                 <CardContent className="space-y-4">
                                     <div className="flex justify-between items-center py-2 border-b">
                                         <span className="text-gray-600">Universo:</span>
-                                        <span className="font-semibold">{hero.universe}</span>
+                                        <span className="font-semibold">{hero?.universe}</span>
                                     </div>
                                     <div className="flex justify-between items-center py-2 border-b">
                                         <span className="text-gray-600">Primera Aparición:</span>
-                                        <span className="font-semibold">{hero.firstAppearance}</span>
+                                        <span className="font-semibold">{hero?.firstAppearance}</span>
                                     </div>
                                     <div className="flex justify-between items-center py-2">
                                         <span className="text-gray-600">Años Activo:</span>
                                         <span className="font-semibold">
-                                            {new Date().getFullYear() - Number.parseInt(hero.firstAppearance)} años
+                                            {new Date().getFullYear() - Number.parseInt(hero?.firstAppearance ?? '')} años
                                         </span>
                                     </div>
                                 </CardContent>
