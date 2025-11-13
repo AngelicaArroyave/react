@@ -23,4 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-05-nest-heroes-backend
+.env
+.env.test
