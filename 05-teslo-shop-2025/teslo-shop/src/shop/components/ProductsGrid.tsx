@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
-import type { Product } from "@/mocks/products.mock"
-import { Filter, Grid, List } from "lucide-react"
-import { ProductCard } from "./ProductCard"
-import { FilterSidebar } from "./FilterSidebar"
+import { AlertCircleIcon, Filter, Grid, List } from "lucide-react"
 import { useSearchParams } from "react-router"
 import { useState } from "react"
+
+import { ProductCard } from "./ProductCard"
+import { FilterSidebar } from "./FilterSidebar"
+import type { Product } from "@/interfaces/product.interface"
 
 interface Props {
     products: Product[]
@@ -86,7 +87,30 @@ export const ProductsGrid = ({ products }: Props) => {
                     )}
 
                     {/* Products Grid */}
-                    <div className="flex-1">
+                    <div className="flex-1 content-center">
+                        {products.length === 0
+                            ? <p className="flex justify-center text-3xl items-center gap-2">
+                                <AlertCircleIcon className="w-[2rem] h-[2rem] text-red-500" />
+                                No se encontraron productos
+                            </p>
+                            : <div className={
+                                viewMode === 'grid'
+                                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                                    : "space-y-4"
+                            }>
+                                {products.map((product) => (
+                                    <ProductCard
+                                        key={product.id}
+                                        id={product.id}
+                                        name={product.title}
+                                        price={product.price}
+                                        image={product.images[0]}
+                                        category={product.gender}
+                                        sizes={product.sizes}
+                                    />
+                                ))}
+                            </div>
+                        }
                         <div className={
                             viewMode === 'grid'
                                 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -96,10 +120,11 @@ export const ProductsGrid = ({ products }: Props) => {
                                 <ProductCard
                                     key={product.id}
                                     id={product.id}
-                                    name={product.name}
+                                    name={product.title}
                                     price={product.price}
-                                    image={product.image}
-                                    category={product.category}
+                                    image={product.images[0]}
+                                    category={product.gender}
+                                    sizes={product.sizes}
                                 />
                             ))}
                         </div>
