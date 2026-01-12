@@ -9,8 +9,8 @@ type AuthStatus = 'authenticated' | 'not-authenticated' | 'checking'
 
 type AuthState = {
     // Properties
-    user: User | null,
-    token: string | null,
+    user: User | null
+    token: string | null
     authStatus: AuthStatus
 
     // Getters
@@ -18,7 +18,7 @@ type AuthState = {
 
     // Actions
     login: (email: string, password: string) => Promise<boolean>
-    logout: () => void,
+    logout: () => void
     checkAuthStatus: () => Promise<boolean>
     register: (fullName: string, email: string, password: string) => Promise<boolean>
 }
