@@ -1,0 +1,17 @@
+import { tesloApi } from "@/api/tesloApi"
+import type { AuthResponse } from "../intrefaces/auth.response"
+
+export const registerAction = async (fullName: string, email: string, password: string): Promise<AuthResponse> => {
+    try {
+        const { data } = await tesloApi.post<AuthResponse>('/auth/register', {
+            fullName,
+            email,
+            password
+        })
+
+        return data
+    } catch (error) {
+        console.log("🚀 ~ registerAction ~ error:", error)
+        throw error
+    }
+}
